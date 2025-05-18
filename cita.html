@@ -240,8 +240,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             z-index: 999;
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
         }
 
         textarea {
@@ -381,12 +383,133 @@
             cursor: pointer;
             font-size: 16px;
         }
+
+        /* Asegurar que los modales y popups estén por encima del overlay */
+        .popup, .modal {
+            z-index: 1000;
+        }
+
+        /* --- FOOTER NUEVO --- */
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 0 10px 0;
+            background: none;
+        }
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            color: #fff;
+        }
+        .logo-col {
+            align-items: flex-start;
+        }
+        .footer-logo {
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .footer-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .footer-slogan {
+            font-size: 1em;
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .footer-heading {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #ffd700;
+            font-size: 1.1em;
+        }
+        .footer-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-nav li {
+            margin-bottom: 8px;
+        }
+        .footer-nav a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-nav a:hover {
+            color: #ffd700;
+        }
+        .footer-contact-item {
+            margin-bottom: 7px;
+            font-size: 0.98em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .footer-contact-item a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-contact-item a:hover {
+            color: #ffd700;
+        }
+        .footer-social-links {
+            display: flex;
+            gap: 18px;
+        }
+        .footer-social {
+            color: #fff;
+            font-size: 1.5em;
+            transition: color 0.2s;
+        }
+        .footer-social:hover {
+            color: #ffd700;
+        }
+        .footer-bar {
+            text-align: center;
+            color: #fff;
+            background: none;
+            padding: 15px 0 0 0;
+            font-size: 1em;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 10px;
+        }
+        @media (max-width: 900px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+        }
+        @media (max-width: 600px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                padding: 30px 0 5px 0;
+            }
+            .footer-col {
+                align-items: flex-start;
+            }
+        }
+        .header-logo {
+            height: 48px;
+            width: auto;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            display: block;
+        }
     </style>
 </head>
 <body>
     <header>
         <a href="main.html" class="home-icon">
-            <i class="fas fa-home"></i>
+            <img src="logo.jpg" alt="Logo Luxury Dental Studio" class="header-logo">
         </a>
         <h1 class="clinica-title">Luxury Dental Studio</h1>
         <div class="contact-icon" id="contactButton">
@@ -402,8 +525,8 @@
             <a href="https://www.facebook.com/share/16Trm61wMM/" class="social-link" target="_blank">
                 <i class="fab fa-facebook fa-lg"></i> Luxury Dental Studio
             </a>
-            <a class="social-link">
-                <i class="fas fa-phone fa-lg"></i> 8337558734
+            <a href="https://wa.me/528337558734" target="_blank" class="social-link">
+                <i class="fab fa-whatsapp fa-lg"></i> 833 755 8734
             </a>
         </div>
     </header>
@@ -466,20 +589,41 @@
     </div>
 
     <footer>
-        <div class="footer-content">
-            <h3 class="footer-title"><i class="fas fa-users"></i> Conócenos</h3>
-            <div class="footer-links">
-                <a href="#" target="_blank">
-                    <i class="fab fa-instagram fa-lg"></i> Instagram
-                </a>
-                <a href="#" target="_blank">
-                    <i class="fab fa-facebook fa-lg"></i> Facebook
-                </a>
+        <div class="footer-grid">
+            <div class="footer-col logo-col">
+                <img src="logo.jpg" alt="Logo Luxury Dental Studio" class="footer-logo" style="max-width: 80px; margin-bottom: 10px;">
+                <div class="footer-brand">Luxury Dental Studio</div>
+                <div class="footer-slogan">Tu Sonrisa, Nuestra Prioridad.</div>
             </div>
-            <div class="footer-contact">
-                <p><i class="fas fa-phone"></i> (123) 456-7890</p>
-                <p><i class="fas fa-envelope"></i> contacto@clinica.com</p>
+            <div class="footer-col nav-col">
+                <div class="footer-heading">Navegación</div>
+                <ul class="footer-nav">
+                    <li><a href="main.html">Inicio</a></li>
+                    <li><a href="#">Sobre Nosotros</a></li>
+                    <li><a href="procedimientos.html">Servicios</a></li>
+                    <li><a href="doctores.html">Nuestro Equipo</a></li>
+                    <li><a href="#" id="footerContactLink">Contacto</a></li>
+                </ul>
             </div>
+            <div class="footer-col contact-col">
+                <div class="footer-heading">Contacto</div>
+                <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i> Blv Loma Real 515, Lomas del Chairel, Tampico Tamps.</div>
+                <div class="footer-contact-item"><a href="https://wa.me/528337558734" target="_blank"><i class="fab fa-whatsapp"></i> 8337558734</a></div>
+                <div class="footer-heading" style="margin-top:18px;">Horario de Atención</div>
+                <div class="footer-contact-item">L-V: 10:00 AM - 2:00 PM y 4:00 PM - 8:00 PM</div>
+                <div class="footer-contact-item">Sáb: 10:00 AM - 4:00 PM</div>
+                <div class="footer-contact-item">Dom: Urgencias</div>
+            </div>
+            <div class="footer-col social-col">
+                <div class="footer-heading">Síguenos</div>
+                <div class="footer-social-links">
+                    <a href="https://www.facebook.com/share/16Trm61wMM/" target="_blank" class="footer-social"><i class="fab fa-facebook fa-lg"></i></a>
+                    <a href="https://www.instagram.com/luxurydentalstudio_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="footer-social"><i class="fab fa-instagram fa-lg"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bar">
+            © 2025 Luxury Dental Studio. Todos los derechos reservados.
         </div>
     </footer>
     <div class="overlay" id="overlay"></div>
@@ -541,6 +685,7 @@
             const closePopup = document.getElementById('closePopup');
             const overlay = document.getElementById('overlay');
             const contactPopup = document.getElementById('contactPopup');
+            const footerContactLink = document.getElementById('footerContactLink');
 
             // Validar fecha para que no se pueda seleccionar días pasados
             const fechaInput = document.getElementById('fecha');
@@ -557,6 +702,14 @@
                 overlay.style.display = 'block';
                 contactPopup.style.display = 'block';
             });
+
+            if (footerContactLink) {
+                footerContactLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    overlay.style.display = 'block';
+                    contactPopup.style.display = 'block';
+                });
+            }
 
             closePopup.addEventListener('click', function() {
                 overlay.style.display = 'none';

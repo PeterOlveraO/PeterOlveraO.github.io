@@ -28,6 +28,11 @@
             );
         }
 
+        /* Estilo para centrar todos los h3 */
+        h3 {
+            text-align: center;
+        }
+
         header {
             background: linear-gradient(135deg, 
                 var(--gold-primary),
@@ -110,7 +115,16 @@
         }
 
         .logo-circle {
-            display: none;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 3px solid #21588E;
+            position: absolute;
+            right: 50px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .contact-icon {
@@ -159,8 +173,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             z-index: 999;
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
         }
 
         .popup-close {
@@ -706,7 +722,7 @@
             transition: transform 0.3s ease;
             background: rgba(184, 134, 11, 0.2);
             padding: 10px;
-            border-radius: 50%;
+            border-radius: 10px;
             border: 2px solid rgba(218,165,32,0.4);
         }
 
@@ -1310,19 +1326,247 @@
         .footer-links a {
             background: var(--primary-gold);
         }
+
+        /* Estilos para los modales */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            position: relative;
+            background: white;
+            margin: 15% auto;
+            padding: 30px;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        .modal-close {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: #000;
+        }
+
+        .modal h3 {
+            color: var(--gold-dark);
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .modal ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .modal ul li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .modal ul li:before {
+            content: "•";
+            color: var(--gold-primary);
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+        }
+
+        .modal p {
+            color: #666;
+            line-height: 1.6;
+            margin: 15px 0;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- FOOTER NUEVO --- */
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 0 10px 0;
+            background: none;
+        }
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            color: #fff;
+        }
+        .logo-col {
+            align-items: flex-start;
+        }
+        .footer-logo {
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .footer-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .footer-slogan {
+            font-size: 1em;
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .footer-heading {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #ffd700;
+            font-size: 1.1em;
+        }
+        .footer-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-nav li {
+            margin-bottom: 8px;
+        }
+        .footer-nav a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-nav a:hover {
+            color: #ffd700;
+        }
+        .footer-contact-item {
+            margin-bottom: 7px;
+            font-size: 0.98em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .footer-social-links {
+            display: flex;
+            gap: 18px;
+        }
+        .footer-social {
+            color: #fff;
+            font-size: 1.5em;
+            transition: color 0.2s;
+        }
+        .footer-social:hover {
+            color: #ffd700;
+        }
+        .footer-bar {
+            text-align: center;
+            color: #fff;
+            background: none;
+            padding: 15px 0 0 0;
+            font-size: 1em;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 10px;
+        }
+        @media (max-width: 900px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+        }
+        @media (max-width: 600px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                padding: 30px 0 5px 0;
+            }
+            .footer-col {
+                align-items: flex-start;
+            }
+        }
+        .footer-contact-item a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-contact-item a:hover {
+            color: #ffd700;
+        }
+      
+            .header-logo {
+            height: 48px;
+            width: auto;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            display: block;
+        }
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            const historiaSection = document.querySelector('.historia-section');
+            const promocionesSection = document.querySelector('.promociones-section');
+
+            if (historiaSection) {
+                observer.observe(historiaSection);
+            }
+            if (promocionesSection) {
+                observer.observe(promocionesSection);
+            }
+
             // Manejo del popup de contacto
             const contactButton = document.getElementById('contactButton');
             const closePopup = document.getElementById('closePopup');
             const overlay = document.getElementById('overlay');
             const contactPopup = document.getElementById('contactPopup');
+            const footerContactLink = document.getElementById('footerContactLink');
 
             contactButton.addEventListener('click', function() {
                 overlay.style.display = 'block';
                 contactPopup.style.display = 'block';
             });
+
+            if (footerContactLink) {
+                footerContactLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    overlay.style.display = 'block';
+                    contactPopup.style.display = 'block';
+                });
+            }
 
             closePopup.addEventListener('click', function() {
                 overlay.style.display = 'none';
@@ -1333,29 +1577,62 @@
                 overlay.style.display = 'none';
                 contactPopup.style.display = 'none';
             });
-
-            // Observer para animaciones
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    } else {
-                        entry.target.classList.remove('visible');
-                    }
-                });
-            }, {
-                threshold: 0.1
-            });
-
-            observer.observe(document.querySelector('.historia-section'));
-            observer.observe(document.querySelector('.promociones-section'));
         });
     </script>
+
+    <!-- Modales para cada servicio -->
+    <div class="modal" id="modalLimpieza">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h3>Limpieza Dental Profesional</h3>
+            <p>Nuestro servicio de limpieza dental incluye:</p>
+            <ul>
+                <li>Remoción de placa y sarro</li>
+                <li>Pulido dental profesional</li>
+                <li>Revisión de encías</li>
+                <li>Recomendaciones personalizadas</li>
+            </ul>
+            <p>Duración aproximada: 45 minutos</p>
+            <button class="modal-button" onclick="window.location.href='cita.html?servicio=limpieza'">Agendar Cita</button>
+        </div>
+    </div>
+
+    <div class="modal" id="modalBlanqueamiento">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h3>Blanqueamiento Dental</h3>
+            <p>Nuestro tratamiento de blanqueamiento incluye:</p>
+            <ul>
+                <li>Evaluación inicial del color dental</li>
+                <li>Blanqueamiento profesional con tecnología LED</li>
+                <li>Kit de mantenimiento para casa</li>
+                <li>Instrucciones post-tratamiento</li>
+            </ul>
+            <p>Duración aproximada: 1 hora</p>
+            <button class="modal-button" onclick="window.location.href='cita.html?servicio=blanqueamiento'">Agendar Cita</button>
+        </div>
+    </div>
+
+    <div class="modal" id="modalProtesis">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h3>Prótesis Removible</h3>
+            <p>Nuestro servicio de prótesis incluye:</p>
+            <ul>
+                <li>Evaluación y diagnóstico completo</li>
+                <li>Diseño personalizado de la prótesis</li>
+                <li>Pruebas de ajuste y comodidad</li>
+                <li>Ajustes post-entrega</li>
+            </ul>
+            <p>Duración del tratamiento: 2-3 semanas</p>
+            <button class="modal-button" onclick="window.location.href='cita.html?servicio=protesis'">Agendar Cita</button>
+        </div>
+    </div>
 </head>
 <body>
     <header>
         <a href="main.html" class="home-icon">
-            <i class="fas fa-home"></i>
+            <img src="logo.jpg" alt="Logo Luxury Dental Studio" class="header-logo">
         </a>
         <h1 class="clinica-title">Luxury Dental Studio</h1>
         <div class="contact-icon" id="contactButton">
@@ -1371,8 +1648,8 @@
             <a href="https://www.facebook.com/share/16Trm61wMM/" class="social-link" target="_blank">
                 <i class="fab fa-facebook fa-lg"></i> Luxury Dental Studio
             </a>
-            <a class="social-link">
-                <i class="fas fa-phone fa-lg"></i> 8337558734
+            <a href="https://wa.me/528337558734" target="_blank" class="social-link">
+                <i class="fab fa-whatsapp fa-lg"></i> 833 755 8734
             </a>
         </div>
     </header>
@@ -1399,7 +1676,9 @@
         <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Visita_odontoiatrica.jpg" alt="Consultorio Dental" class="welcome-image">
         <div class="welcome-text">
             <h2>Tu sonrisa es nuestra prioridad</h2>
-            <p>En nuestra clínica, nos dedicamos a brindarte la mejor atención dental con tecnología de vanguardia y un equipo de profesionales altamente calificados. No esperes más para tener la sonrisa que siempre has deseado.</p>
+            <p>Bienvenido a Luxury Dental Studio. Hemos creado un santuario de salud bucal, un lugar tranquilo y elegante donde cada detalle está pensado para tu comodidad y confianza. Nuestro equipo de especialistas está listo para brindarte la atención de más alta calidad, con tratamientos personalizados para ti y tu familia.
+
+                <br><br> Agenda tu cita hoy y vive una atención dental verdaderamente cómoda.</p>
             <button class="cita-button" onclick="window.location.href='cita.html'">AGENDA TU CITA AHORA</button>
         </div>
     </div>
@@ -1408,28 +1687,21 @@
 
     <div class="content">
         <div class="column left" onclick="window.location.href='doctores.html'">
-            <h2>Nuestros especialistas</h2>
+            <h2>Nuestros Profesionales</h2>
             <img src="https://images.vexels.com/media/users/3/146286/isolated/preview/e19da03c124721813183158a2bd91bf1-doctor-tenencia-libro-silueta.png" alt="Silueta de Doctor">
             <button class="column-button">Ver Especialistas →</button>
         </div>
         <div class="column right" onclick="window.location.href='procedimientos.html'">
-            <img src="https://cdn-icons-png.flaticon.com/512/819/819229.png" alt="Silueta de Procedimientos">
-            <h2>Servicios Disponibles</h2>
+            <h2>Nuestros Servicios</h2> <br>
+            <img src="https://cdn-icons-png.flaticon.com/512/819/819229.png" alt="Silueta de Procedimientos"><br>
             <button class="column-button">Explorar Servicios →</button>
         </div>
     </div>
     <section class="historia-section">
         <div class="historia-content">
-            <h2 class="historia-title">Nuestra Historia</h2>
+            <h2 class="historia-title">Una Nueva Era para tu Sonrisa</h2>
             <p class="historia-text">
-                Durante tres generaciones, nuestra pasión por la odontología nos ha mantenido despiertos,
-                pensando constantemente en cómo mejorar la vida de nuestros pacientes. Lo que comenzó como
-                un sueño en 1985, se ha convertido en una realidad que supera todas nuestras expectativas.
-                Cada noche de dedicación, cada momento de estudio y preparación, nos ha llevado a donde
-                estamos hoy. Más de 10,000 sonrisas transformadas son testigo de nuestro compromiso eterno
-                con la excelencia. Esta no es solo una clínica dental, es el resultado de un amor profundo
-                por nuestra profesión, un amor que se refleja en cada tratamiento, en cada paciente,
-                en cada sonrisa recuperada.
+                Luxury Dental Studio abrió sus puertas el 15 de diciembre de 2024 con una clara visión: ser la promesa de una experiencia dental excepcional. Nacimos como un espacio completamente nuevo, elegante y diseñado enteramente pensando en tu máximo confort. Somos un consultorio con gran potencial, donde la atención experta y tu bienestar se unen para cuidar de tu sonrisa de una forma única, cómoda y con el toque de lujo que mereces.
             </p>
         </div>
         <img class="historia-image" src="https://clinicadentaldelgado.es/wp-content/uploads/2023/09/beneficios-odontologia-preventiva-1080x675.jpg" alt="Clínica Dental">
@@ -1467,7 +1739,7 @@
     </section>
 
     <section class="ubicacion-section">
-        <h2 class="ubicacion-title">Aquí nos ubicamos</h2>
+        <h2 class="ubicacion-title">Visítanos</h2>
         <div class="mapa-container">
             <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3692.0117841174306!2d-97.87996602815353!3d22.277543448170515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d7fb00158f570b%3A0x781ac404cbb28720!2sLuxury%20Dental%20Studio!5e0!3m2!1ses-419!2smx!4v1747507364632!5m2!1ses-419!2smx"
@@ -1478,20 +1750,41 @@
         </div>
     </section>
     <footer>
-        <div class="footer-content">
-            <h3 class="footer-title"><i class="fas fa-users"></i> Conócenos</h3>
-            <div class="footer-links">
-                <a href="https://www.instagram.com/luxurydentalstudio_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">
-                    <i class="fab fa-instagram fa-lg"></i> Instagram
-                </a>
-                <a href="https://www.facebook.com/share/16Trm61wMM/" target="_blank">
-                    <i class="fab fa-facebook fa-lg"></i> Facebook
-                </a>
+        <div class="footer-grid">
+            <div class="footer-col logo-col">
+                <img src="logo.jpg" alt="Logo Luxury Dental Studio" class="footer-logo" style="max-width: 80px; margin-bottom: 10px;">
+                <div class="footer-brand">Luxury Dental Studio</div>
+                <div class="footer-slogan">Tu Sonrisa, Nuestra Prioridad.</div>
             </div>
-            <div class="footer-contact">
-                <p><i class="fas fa-phone"></i> 8337558734</p>
-
+            <div class="footer-col nav-col">
+                <div class="footer-heading">Navegación</div>
+                <ul class="footer-nav">
+                    <li><a href="main.html">Inicio</a></li>
+                    <li><a href="#">Sobre Nosotros</a></li>
+                    <li><a href="procedimientos.html">Servicios</a></li>
+                    <li><a href="doctores.html">Nuestro Equipo</a></li>
+                    <li><a href="#" id="footerContactLink">Contacto</a></li>
+                </ul>
             </div>
+            <div class="footer-col contact-col">
+                <div class="footer-heading">Contacto</div>
+                <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i> Blv Loma Real 515, Lomas del Chairel, Tampico Tamps.</div>
+                <div class="footer-contact-item"><a href="https://wa.me/528337558734" target="_blank"><i class="fab fa-whatsapp"></i> 8337558734</a></div>
+                <div class="footer-heading" style="margin-top:18px;">Horario de Atención</div>
+                <div class="footer-contact-item">L-V: 10:00 AM - 2:00 PM y 4:00 PM - 8:00 PM</div>
+                <div class="footer-contact-item">Sáb: 10:00 AM - 4:00 PM</div>
+                <div class="footer-contact-item">Dom: Urgencias</div>
+            </div>
+            <div class="footer-col social-col">
+                <div class="footer-heading">Síguenos</div>
+                <div class="footer-social-links">
+                    <a href="https://www.facebook.com/share/16Trm61wMM/" target="_blank" class="footer-social"><i class="fab fa-facebook fa-lg"></i></a>
+                    <a href="https://www.instagram.com/luxurydentalstudio_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="footer-social"><i class="fab fa-instagram fa-lg"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bar">
+            © 2025 Luxury Dental Studio. Todos los derechos reservados.
         </div>
     </footer>
     <div class="overlay" id="overlay"></div>
@@ -1522,11 +1815,20 @@
             const closePopup = document.getElementById('closePopup');
             const overlay = document.getElementById('overlay');
             const contactPopup = document.getElementById('contactPopup');
+            const footerContactLink = document.getElementById('footerContactLink');
 
             contactButton.addEventListener('click', function() {
                 overlay.style.display = 'block';
                 contactPopup.style.display = 'block';
             });
+
+            if (footerContactLink) {
+                footerContactLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    overlay.style.display = 'block';
+                    contactPopup.style.display = 'block';
+                });
+            }
 
             closePopup.addEventListener('click', function() {
                 overlay.style.display = 'none';
@@ -1539,5 +1841,54 @@
             });
         });
     </script>
+
+    <!-- Modales para cada servicio -->
+    <div class="modal" id="modalLimpieza">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h3>Limpieza Dental Profesional</h3>
+            <p>Nuestro servicio de limpieza dental incluye:</p>
+            <ul>
+                <li>Remoción de placa y sarro</li>
+                <li>Pulido dental profesional</li>
+                <li>Revisión de encías</li>
+                <li>Recomendaciones personalizadas</li>
+            </ul>
+            <p>Duración aproximada: 45 minutos</p>
+            <button class="modal-button" onclick="window.location.href='cita.html?servicio=limpieza'">Agendar Cita</button>
+        </div>
+    </div>
+
+    <div class="modal" id="modalBlanqueamiento">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h3>Blanqueamiento Dental</h3>
+            <p>Nuestro tratamiento de blanqueamiento incluye:</p>
+            <ul>
+                <li>Evaluación inicial del color dental</li>
+                <li>Blanqueamiento profesional con tecnología LED</li>
+                <li>Kit de mantenimiento para casa</li>
+                <li>Instrucciones post-tratamiento</li>
+            </ul>
+            <p>Duración aproximada: 1 hora</p>
+            <button class="modal-button" onclick="window.location.href='cita.html?servicio=blanqueamiento'">Agendar Cita</button>
+        </div>
+    </div>
+
+    <div class="modal" id="modalProtesis">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h3>Prótesis Removible</h3>
+            <p>Nuestro servicio de prótesis incluye:</p>
+            <ul>
+                <li>Evaluación y diagnóstico completo</li>
+                <li>Diseño personalizado de la prótesis</li>
+                <li>Pruebas de ajuste y comodidad</li>
+                <li>Ajustes post-entrega</li>
+            </ul>
+            <p>Duración del tratamiento: 2-3 semanas</p>
+            <button class="modal-button" onclick="window.location.href='cita.html?servicio=protesis'">Agendar Cita</button>
+        </div>
+    </div>
 </body>
 </html>

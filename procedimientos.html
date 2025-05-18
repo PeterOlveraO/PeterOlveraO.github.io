@@ -445,12 +445,146 @@
             left: 0;
             top: 0;
         }
+
+        /* Estilos para el overlay */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            backdrop-filter: blur(3px);
+        }
+
+        /* Ajustar el z-index del popup para que esté por encima del overlay */
+        .info-popup {
+            z-index: 1000;
+        }
+
+        /* --- FOOTER NUEVO --- */
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 0 10px 0;
+            background: none;
+        }
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            color: #fff;
+        }
+        .logo-col {
+            align-items: flex-start;
+        }
+        .footer-logo {
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .footer-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .footer-slogan {
+            font-size: 1em;
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .footer-heading {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #ffd700;
+            font-size: 1.1em;
+        }
+        .footer-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-nav li {
+            margin-bottom: 8px;
+        }
+        .footer-nav a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-nav a:hover {
+            color: #ffd700;
+        }
+        .footer-contact-item {
+            margin-bottom: 7px;
+            font-size: 0.98em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .footer-contact-item a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-contact-item a:hover {
+            color: #ffd700;
+        }
+        .footer-social-links {
+            display: flex;
+            gap: 18px;
+        }
+        .footer-social {
+            color: #fff;
+            font-size: 1.5em;
+            transition: color 0.2s;
+        }
+        .footer-social:hover {
+            color: #ffd700;
+        }
+        .footer-bar {
+            text-align: center;
+            color: #fff;
+            background: none;
+            padding: 15px 0 0 0;
+            font-size: 1em;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 10px;
+        }
+        @media (max-width: 900px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+        }
+        @media (max-width: 600px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                padding: 30px 0 5px 0;
+            }
+            .footer-col {
+                align-items: flex-start;
+            }
+        }
+        .header-logo {
+            height: 48px;
+            width: auto;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            display: block;
+        }
     </style>
 </head>
 <body>
     <header>
         <a href="main.html" class="home-icon">
-            <i class="fas fa-home"></i>
+            <img src="logo.jpg" alt="Logo Luxury Dental Studio" class="header-logo">
         </a>
         <h1 class="clinica-title">Luxury Dental Studio</h1>
         <div class="contact-icon" id="contactButton">
@@ -466,41 +600,22 @@
             <a href="https://www.facebook.com/share/16Trm61wMM/" class="social-link" target="_blank">
                 <i class="fab fa-facebook fa-lg"></i> Luxury Dental Studio
             </a>
-            <a class="social-link">
-                <i class="fas fa-phone fa-lg"></i> 8337558734
+            <a href="https://wa.me/528337558734" target="_blank" class="social-link">
+                <i class="fab fa-whatsapp fa-lg"></i> 833 755 8734
             </a>
         </div>
     </header>
-
-    <!-- Agregar el popup después del header -->
-    <div class="popup" id="contactPopup">
-        <div class="popup-close" id="closePopup">&times;</div>
-        <h3><i class="fas fa-address-book"></i> Nuestras Redes Sociales</h3>
-        <a href="#" class="social-link">
-            <i class="fab fa-instagram fa-lg"></i> @clinicadental
-        </a>
-        <a href="#" class="social-link">
-            <i class="fab fa-facebook fa-lg"></i> Clínica Dental
-        </a>
-        <a href="mailto:contacto@clinica.com" class="social-link">
-            <i class="fas fa-envelope fa-lg"></i> contacto@clinica.com
-        </a>
-    </div>
 
     <div class="procedures-container">
         <h2 class="procedures-title">Nuestros Servicios</h2>
         <div class="procedures-grid">
             <div class="procedure-card">
                 <img src="https://dentistatijuana.com/wp-content/uploads/2024/10/te-decimos-que-incluye-una-consulta-dental-en-la-actualidad.webp" alt="Consulta" class="procedure-image">
+                
                 <div class="procedure-content">
+                    
                     <h3 class="procedure-name">Consulta General</h3>
-                    <div class="procedure-duration">
-                        <i class="far fa-clock"></i> Duración: 30 min
-                    </div>
-                    <div class="procedure-price">
-                        $500
-                        <span>Primera consulta</span>
-                    </div>
+                    
                     <button class="info-button" onclick="showProcedureInfo('consulta')">Más Información</button>
                 </div>
             </div>
@@ -509,13 +624,6 @@
                 <img src="https://tiiz.es/wp-content/uploads/2021/01/Radiografia-dental.png" alt="Radiografías" class="procedure-image">
                 <div class="procedure-content">
                     <h3 class="procedure-name">Radiografías</h3>
-                    <div class="procedure-duration">
-                        <i class="far fa-clock"></i> Duración: 15 min
-                    </div>
-                    <div class="procedure-price">
-                        $100
-                        <span>Por radiografía</span>
-                    </div>
                     <button class="info-button" onclick="showProcedureInfo('radiografias')">Más Información</button>
                 </div>
             </div>
@@ -524,13 +632,6 @@
                 <img src="https://dentalproject.es/wp-content/uploads/2022/10/AdobeStock_255770370-scaled-e1664987765243.jpeg" alt="Limpieza" class="procedure-image">
                 <div class="procedure-content">
                     <h3 class="procedure-name">Limpieza Dental</h3>
-                    <div class="procedure-duration">
-                        <i class="far fa-clock"></i> Duración: 45 min
-                    </div>
-                    <div class="procedure-price">
-                        $500
-                        <span>Limpieza profunda</span>
-                    </div>
                     <button class="info-button" onclick="showProcedureInfo('limpieza')">Más Información</button>
                 </div>
             </div>
@@ -539,13 +640,6 @@
                 <img src="https://laclinicaroma.com.mx/wp-content/uploads/2019/03/resina-de-alta-estetica.jpg" alt="Resinas" class="procedure-image">
                 <div class="procedure-content">
                     <h3 class="procedure-name">Resinas</h3>
-                    <div class="procedure-duration">
-                        <i class="far fa-clock"></i> Duración: 30-45 min
-                    </div>
-                    <div class="procedure-price">
-                        $500
-                        <span>Por pieza dental</span>
-                    </div>
                     <button class="info-button" onclick="showProcedureInfo('resinas')">Más Información</button>
                 </div>
             </div>
@@ -554,13 +648,7 @@
                 <img src="https://clinicadentaliturralde.com/wp-content/uploads/2024/10/extraccion-muela-del-juicio.webp" alt="Extracciones" class="procedure-image">
                 <div class="procedure-content">
                     <h3 class="procedure-name">Extracciones</h3>
-                    <div class="procedure-duration">
-                        <i class="far fa-clock"></i> Duración: 30-45 min
-                    </div>
-                    <div class="procedure-price">
-                        $500
-                        <span>Por extracción</span>
-                    </div>
+                
                     <button class="info-button" onclick="showProcedureInfo('extracciones')">Más Información</button>
                 </div>
             </div>
@@ -569,13 +657,6 @@
                 <img src="https://www.clinicacsdental.com/wp-content/uploads/2024/02/Coronas-de-zirconio-5.jpg" alt="Coronas" class="procedure-image">
                 <div class="procedure-content">
                     <h3 class="procedure-name">Coronas de Zirconia</h3>
-                    <div class="procedure-duration">
-                        <i class="far fa-clock"></i> Duración: 90 min
-                    </div>
-                    <div class="procedure-price">
-                        $6,500
-                        <span>Por corona</span>
-                    </div>
                     <button class="info-button" onclick="showProcedureInfo('coronas')">Más Información</button>
                 </div>
             </div>
@@ -584,13 +665,6 @@
                 <img src="https://dentisalut.com/wp-content/uploads/2020/09/ventajas-endodoncia.jpg" alt="Endodoncia" class="procedure-image">
                 <div class="procedure-content">
                     <h3 class="procedure-name">Endodoncia</h3>
-                    <div class="procedure-duration">
-                        <i class="far fa-clock"></i> Duración: 60-90 min
-                    </div>
-                    <div class="procedure-price">
-                        $2,800
-                        <span>Por pieza dental</span>
-                    </div>
                     <button class="info-button" onclick="showProcedureInfo('endodoncia')">Más Información</button>
                 </div>
             </div>
@@ -599,13 +673,6 @@
                 <img src="https://gonzalezycasado.com/wp-content/uploads/2019/10/FOTO-MUELA-DEL-JUICIO_3-1242x828.jpg" alt="Muelas del Juicio" class="procedure-image">
                 <div class="procedure-content">
                     <h3 class="procedure-name">Cirugía Muelas del Juicio</h3>
-                    <div class="procedure-duration">
-                        <i class="far fa-clock"></i> Duración: 60-90 min
-                    </div>
-                    <div class="procedure-price">
-                        $2,800
-                        <span>Por muela</span>
-                    </div>
                     <button class="info-button" onclick="showProcedureInfo('muelasjuicio')">Más Información</button>
                 </div>
             </div>
@@ -614,13 +681,6 @@
                 <img src="https://cirujanopediatraencdmx.com/images/consulta-pediatrica-por-enfermedad.jpg" alt="Pediatría" class="procedure-image">
                 <div class="procedure-content">
                     <h3 class="procedure-name">Consulta Pediátrica</h3>
-                    <div class="procedure-duration">
-                        <i class="far fa-clock"></i> Duración: 45 min
-                    </div>
-                    <div class="procedure-price">
-                        $600
-                        <span>Primera consulta</span>
-                    </div>
                     <button class="info-button" onclick="showProcedureInfo('pediatria')">Más Información</button>
                 </div>
             </div>
@@ -634,51 +694,216 @@
     </div>
 
     <footer>
-        <div class="footer-content">
-            <h3 class="footer-title"><i class="fas fa-users"></i> Conócenos</h3>
-            <div class="footer-links">
-                <a href="https://www.instagram.com/luxurydentalstudio_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">
-                    <i class="fab fa-instagram fa-lg"></i> Instagram
-                </a>
-                <a href="https://www.facebook.com/share/16Trm61wMM/" target="_blank">
-                    <i class="fab fa-facebook fa-lg"></i> Facebook
-                </a>
+        <div class="footer-grid">
+            <div class="footer-col logo-col">
+                <img src="logo.jpg" alt="Logo Luxury Dental Studio" class="footer-logo" style="max-width: 80px; margin-bottom: 10px;">
+                <div class="footer-brand">Luxury Dental Studio</div>
+                <div class="footer-slogan">Tu Sonrisa, Nuestra Prioridad.</div>
             </div>
-            <div class="footer-contact">
-                <p><i class="fas fa-phone"></i> 8337558734</p>
+            <div class="footer-col nav-col">
+                <div class="footer-heading">Navegación</div>
+                <ul class="footer-nav">
+                    <li><a href="main.html">Inicio</a></li>
+                    <li><a href="#">Sobre Nosotros</a></li>
+                    <li><a href="procedimientos.html">Servicios</a></li>
+                    <li><a href="doctores.html">Nuestro Equipo</a></li>
+                    <li><a href="#" id="footerContactLink">Contacto</a></li>
+                </ul>
             </div>
+            <div class="footer-col contact-col">
+                <div class="footer-heading">Contacto</div>
+                <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i> Blv Loma Real 515, Lomas del Chairel, Tampico Tamps.</div>
+                <div class="footer-contact-item"><a href="https://wa.me/528337558734" target="_blank"><i class="fab fa-whatsapp"></i> 8337558734</a></div>
+                <div class="footer-heading" style="margin-top:18px;">Horario de Atención</div>
+                <div class="footer-contact-item">L-V: 10:00 AM - 2:00 PM y 4:00 PM - 8:00 PM</div>
+                <div class="footer-contact-item">Sáb: 10:00 AM - 4:00 PM</div>
+                <div class="footer-contact-item">Dom: Urgencias</div>
+            </div>
+            <div class="footer-col social-col">
+                <div class="footer-heading">Síguenos</div>
+                <div class="footer-social-links">
+                    <a href="https://www.facebook.com/share/16Trm61wMM/" target="_blank" class="footer-social"><i class="fab fa-facebook fa-lg"></i></a>
+                    <a href="https://www.instagram.com/luxurydentalstudio_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="footer-social"><i class="fab fa-instagram fa-lg"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bar">
+            © 2025 Luxury Dental Studio. Todos los derechos reservados.
         </div>
     </footer>
     <div class="overlay" id="overlay"></div>
 
     <script>
-        // Funcionalidad del popup de contacto
-        const contactButton = document.getElementById('contactButton');
-        const contactPopup = document.getElementById('contactPopup');
-        const closePopup = document.getElementById('closePopup');
+        // Popup de contacto igual que en main.html
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactButton = document.getElementById('contactButton');
+            const closePopup = document.getElementById('closePopup');
+            const overlay = document.getElementById('overlay');
+            const contactPopup = document.getElementById('contactPopup');
+            const footerContactLink = document.getElementById('footerContactLink');
 
-        contactButton.addEventListener('click', () => {
-            contactPopup.style.display = 'block';
-        });
+            contactButton.addEventListener('click', function() {
+                overlay.style.display = 'block';
+                contactPopup.style.display = 'block';
+            });
 
-        closePopup.addEventListener('click', () => {
-            contactPopup.style.display = 'none';
+            if (footerContactLink) {
+                footerContactLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    overlay.style.display = 'block';
+                    contactPopup.style.display = 'block';
+                });
+            }
+
+            closePopup.addEventListener('click', function() {
+                overlay.style.display = 'none';
+                contactPopup.style.display = 'none';
+            });
+
+            overlay.addEventListener('click', function() {
+                overlay.style.display = 'none';
+                contactPopup.style.display = 'none';
+            });
         });
 
         // Funcionalidad para los popups de información de procedimientos
         function showProcedureInfo(procedure) {
             const popup = document.getElementById('procedureInfo');
+            const overlay = document.getElementById('overlay');
             const content = document.getElementById('procedureInfoContent');
+            
             popup.style.display = 'block';
+            overlay.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevenir scroll cuando el modal está abierto
 
             // Objeto con la información detallada de cada procedimiento
             const procedureDetails = {
                 consulta: {
                     title: "Consulta General",
-                    description: "Evaluación completa del estado de su salud bucal.",
-                    details: ["Diagnóstico completo", "Plan de tratamiento personalizado", "Recomendaciones de cuidado dental"]
+                    description: "Una evaluación completa y detallada de su salud bucal, donde nuestros especialistas realizan un diagnóstico exhaustivo para identificar cualquier problema dental y crear un plan de tratamiento personalizado.",
+                    details: [
+                        "Evaluación completa de dientes y encías",
+                        "Diagnóstico de problemas dentales",
+                        "Plan de tratamiento personalizado",
+                        "Recomendaciones de cuidado dental",
+                        "Presupuesto detallado de tratamientos necesarios"
+                    ],
+                    duration: "30 minutos",
+                    price: "$500",
+                    notes: "Incluye radiografía panorámica si es necesaria"
                 },
-                // Añadir más procedimientos según sea necesario
+                radiografias: {
+                    title: "Radiografías Dentales",
+                    description: "Utilizamos tecnología digital de última generación para obtener imágenes detalladas de sus dientes y estructuras óseas, permitiendo un diagnóstico preciso y seguro.",
+                    details: [
+                        "Radiografía panorámica digital",
+                        "Radiografía periapical",
+                        "Radiografía de aleta mordida",
+                        "Interpretación profesional",
+                        "Almacenamiento digital de imágenes"
+                    ],
+                    duration: "15 minutos",
+                    price: "$100",
+                    notes: "Sin radiación nociva gracias a nuestra tecnología digital"
+                },
+                limpieza: {
+                    title: "Limpieza Dental Profesional",
+                    description: "Una limpieza profunda y completa que elimina la placa, el sarro y las manchas superficiales, dejando sus dientes más blancos y saludables.",
+                    details: [
+                        "Remoción de placa y sarro",
+                        "Pulido dental profesional",
+                        "Limpieza de lengua",
+                        "Aplicación de flúor",
+                        "Recomendaciones de higiene personalizada"
+                    ],
+                    duration: "45 minutos",
+                    price: "$500",
+                    notes: "Recomendada cada 6 meses para mantener una salud dental óptima"
+                },
+                resinas: {
+                    title: "Resinas Estéticas",
+                    description: "Restauraciones dentales estéticas que combinan perfectamente con el color natural de sus dientes, ideales para reparar caries y mejorar la apariencia dental.",
+                    details: [
+                        "Material de resina de alta calidad",
+                        "Color personalizado a sus dientes",
+                        "Adhesión fuerte y duradera",
+                        "Acabado pulido y natural",
+                        "Garantía de 1 año"
+                    ],
+                    duration: "30-45 minutos",
+                    price: "$500",
+                    notes: "Ideal para caries pequeñas y medianas"
+                },
+                extracciones: {
+                    title: "Extracciones Dentales",
+                    description: "Procedimiento seguro y profesional para la extracción de dientes, realizado con técnicas modernas y anestesia local para su comodidad.",
+                    details: [
+                        "Evaluación previa completa",
+                        "Anestesia local",
+                        "Extracción cuidadosa",
+                        "Instrucciones post-extracción",
+                        "Control post-operatorio"
+                    ],
+                    duration: "30-45 minutos",
+                    price: "$500",
+                    notes: "Incluye medicamentos post-operatorios"
+                },
+                coronas: {
+                    title: "Coronas de Zirconia",
+                    description: "Coronas dentales de alta calidad fabricadas en zirconia, un material de última generación que ofrece durabilidad, estética y biocompatibilidad.",
+                    details: [
+                        "Diseño digital personalizado",
+                        "Material zirconia de alta resistencia",
+                        "Color natural y translúcido",
+                        "Ajuste preciso",
+                        "Garantía de 5 años"
+                    ],
+                    duration: "90 minutos",
+                    price: "$6,500",
+                    notes: "Incluye preparación dental y corona temporal"
+                },
+                endodoncia: {
+                    title: "Endodoncia",
+                    description: "Tratamiento de conducto profesional para salvar dientes dañados o infectados, realizado con tecnología de última generación para su comodidad.",
+                    details: [
+                        "Diagnóstico con radiografía digital",
+                        "Anestesia local",
+                        "Limpieza y desinfección del conducto",
+                        "Obturación del conducto",
+                        "Radiografía de control"
+                    ],
+                    duration: "60-90 minutos",
+                    price: "$2,800",
+                    notes: "Incluye corona temporal si es necesaria"
+                },
+                muelasjuicio: {
+                    title: "Cirugía de Muelas del Juicio",
+                    description: "Extracción profesional de muelas del juicio, realizada por especialistas con experiencia en cirugía oral, utilizando técnicas avanzadas para su comodidad.",
+                    details: [
+                        "Evaluación radiográfica completa",
+                        "Anestesia local",
+                        "Extracción quirúrgica",
+                        "Sutura absorbible",
+                        "Control post-operatorio"
+                    ],
+                    duration: "60-90 minutos",
+                    price: "$2,800",
+                    notes: "Incluye medicamentos y control post-operatorio"
+                },
+                pediatria: {
+                    title: "Consulta Pediátrica",
+                    description: "Atención dental especializada para niños, creando una experiencia positiva y divertida mientras cuidamos la salud dental de los más pequeños.",
+                    details: [
+                        "Evaluación dental completa",
+                        "Aplicación de flúor",
+                        "Instrucciones de higiene para padres",
+                        "Control de hábitos",
+                        "Recomendaciones de dieta"
+                    ],
+                    duration: "45 minutos",
+                    price: "$600",
+                    notes: "Incluye kit de higiene dental infantil"
+                }
             };
 
             const info = procedureDetails[procedure] || {
@@ -691,25 +916,35 @@
                 <h3 class="procedure-name">${info.title}</h3>
                 <p class="procedure-description">${info.description}</p>
                 <div class="procedure-details">
-                    <strong>El procedimiento incluye:</strong>
-                    <ul>
-                        ${info.details.map(detail => `<li>${detail}</li>`).join('')}
-                    </ul>
+                    <p><strong>Duración:</strong> ${info.duration}</p>
+                    <p><strong>Precio:</strong> ${info.price}</p>
+                    ${info.notes ? `<p><strong>Notas adicionales:</strong> ${info.notes}</p>` : ''}
                 </div>
+                <button class="info-button" onclick="window.location.href='cita.html?servicio=${procedure}'">Agendar Cita</button>
             `;
         }
 
         function closeProcedureInfo() {
-            document.getElementById('procedureInfo').style.display = 'none';
+            const popup = document.getElementById('procedureInfo');
+            const overlay = document.getElementById('overlay');
+            
+            popup.style.display = 'none';
+            overlay.style.display = 'none';
+            document.body.style.overflow = ''; // Restaurar scroll
         }
 
         // Cerrar popups al hacer clic fuera de ellos
         window.onclick = function(event) {
+            const overlay = document.getElementById('overlay');
+            const popup = document.getElementById('procedureInfo');
+            
             if (event.target == contactPopup) {
                 contactPopup.style.display = 'none';
             }
-            if (event.target == document.getElementById('procedureInfo')) {
-                document.getElementById('procedureInfo').style.display = 'none';
+            if (event.target == popup || event.target == overlay) {
+                popup.style.display = 'none';
+                overlay.style.display = 'none';
+                document.body.style.overflow = '';
             }
         }
     </script>
