@@ -92,12 +92,14 @@
             max-width: 1400px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px; /* Reducido de 30px a 20px */
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+            padding: 0 20px;
         }
 
         .form-group {
-            margin-bottom: 20px; /* Reducido de 25px a 20px */
+            margin-bottom: 20px;
+            min-width: 0; /* Previene que los elementos se expandan más allá de su contenedor */
         }
 
         .form-group.full-width {
@@ -118,6 +120,7 @@
             border-radius: 8px;
             font-size: 16px;
             transition: border-color 0.3s ease;
+            box-sizing: border-box; /* Asegura que el padding no aumente el ancho total */
         }
 
         input:focus, select:focus, textarea:focus {
