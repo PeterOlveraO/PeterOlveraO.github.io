@@ -529,9 +529,7 @@
                 <i class="fab fa-whatsapp fa-lg"></i> 833 755 8734
             </a>
         </div>
-    </header>
-
-   <div class="form-container">
+        </header>   <div class="form-container">
         <h2 class="form-title">Agendar Nueva Cita</h2>
 
         <div class="progress-container">
@@ -541,15 +539,33 @@
             </div>
         </div>
 
-        <form id="citaForm">
+        <!-- Búsqueda de paciente por teléfono -->
+        <div class="form-group full-width" style="max-width: 1400px; margin: 0 auto 20px; display: flex; gap: 10px; align-items: flex-end;">
+            <div style="flex-grow: 1;">
+                <label for="telefonoBusqueda">Buscar paciente por teléfono:</label>
+                <input type="tel" id="telefonoBusqueda" placeholder="Ingresa tu número a 10 dígitos" maxlength="10">
+            </div>
+            <button type="button" id="buscarBtn" class="modal-button" style="margin: 0; height: 46px;">Buscar</button>
+        </div>
+        <p id="mensajeBusqueda" style="text-align: center; margin: 10px 0; font-weight: bold; max-width: 1400px; margin-left: auto; margin-right: auto;"></p>        <form id="citaForm">
             <div class="form-group">
-                <label for="nombre">Nombre Completo</label>
+                <label for="nombre">Nombre</label>
                 <input type="text" id="nombre" name="nombre" required>
+            </div>
+
+            <div class="form-group">
+                <label for="apellidos">Apellidos</label>
+                <input type="text" id="apellidos" name="apellidos" required>
             </div>
 
             <div class="form-group">
                 <label for="telefono">Teléfono</label>
                 <input type="tel" id="telefono" name="telefono" required>
+            </div>
+
+            <div class="form-group">
+                <label for="correo">Correo Electrónico</label>
+                <input type="email" id="correo" name="correo" required>
             </div>
 
             <div class="form-group">
@@ -626,15 +642,144 @@
             © 2025 Luxury Dental Studio. Todos los derechos reservados.
         </div>
     </footer>
-    <div class="overlay" id="overlay"></div>
-
-    <script>
+    <div class="overlay" id="overlay"></div>    <script>
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('citaForm');
             const progress = document.getElementById('progress');
             const progressText = document.getElementById('progress-percentage');
             const requiredFields = form.querySelectorAll('[required]');
             const totalFields = requiredFields.length;
+            const mensajeBusqueda = document.getElementById('mensajeBusqueda');
+            const buscarBtn = document.getElementById('buscarBtn');
+
+            // Función para buscar paciente por teléfono
+            async function buscarPacientePorTelefono(telefono) {
+                try {
+                    const response = await fetch(`https://dentist-app-0fcf42a43c96.herokuapp.com/api/pacientes/telefono/${telefono}`);
+                    
+                    if (!response.ok) {
+                        if (response.status === 404) {
+                            // El paciente no existe, se podría mostrar un formulario para crear uno nuevo
+                            return { existe: false, mensaje: 'Paciente no encontrado' };
+                        }
+                        throw new Error(`Error HTTP: ${response.status}`);
+                    }
+                    
+                    const data = await response.json();
+                    return { 
+                        existe: true,
+                        paciente: data.data,
+                        mensaje: 'Paciente encontrado' 
+                    };
+                } catch (error) {
+                    console.error('Error al buscar paciente:', error);
+                    return { existe: false, error: error.message };
+                }
+            }            // Función para crear un nuevo paciente
+            async function crearPaciente(datosPaciente) {
+                try {
+                    const response = await fetch('https://dentist-app-0fcf42a43c96.herokuapp.com/api/pacientes', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(datosPaciente)
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`Error HTTP: ${response.status}`);
+                    }
+                    
+                    const data = await response.json();
+                    return { 
+                        exito: true,
+                        paciente: data.data,
+                        mensaje: 'Paciente registrado correctamente' 
+                    };
+                } catch (error) {
+                    console.error('Error al registrar paciente:', error);
+                    return { exito: false, error: error.message };
+                }
+            }
+              // Función para crear una nueva cita
+            async function crearCita(datosCita) {
+                try {
+                    const response = await fetch('https://dentist-app-0fcf42a43c96.herokuapp.com/api/generarcitaweb', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(datosCita)
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (!response.ok) {
+                        // Mostrar los detalles específicos del error
+                        console.error('Detalles del error ' + response.status + ':', data);
+                        throw new Error(`Error HTTP ${response.status}: ${JSON.stringify(data.errors || data.message)}`);
+                    }
+                    
+                    return { 
+                        exito: true,
+                        cita: data.data,
+                        mensaje: 'Cita agendada correctamente' 
+                    };
+                } catch (error) {
+                    console.error('Error al agendar cita:', error);
+                    return { exito: false, error: error.message };
+                }
+            }
+
+            // Búsqueda de paciente al hacer clic en el botón
+            buscarBtn.addEventListener('click', async () => {
+                const telefono = document.getElementById('telefonoBusqueda').value.trim();
+                
+                if (!telefono || telefono.length < 10) {
+                    mensajeBusqueda.textContent = 'Por favor, introduce un número de teléfono válido (10 dígitos).';
+                    mensajeBusqueda.style.color = '#dc3545';
+                    return;
+                }
+                
+                mensajeBusqueda.textContent = 'Buscando paciente...';
+                mensajeBusqueda.style.color = '#007bff';
+                
+                const resultado = await buscarPacientePorTelefono(telefono);
+                  if (resultado.existe) {
+                    // Paciente encontrado, mostramos sus datos
+                    document.getElementById('nombre').value = resultado.paciente.nombre || '';
+                    document.getElementById('apellidos').value = resultado.paciente.apellidos || '';
+                    document.getElementById('telefono').value = resultado.paciente.telefono || '';
+                    document.getElementById('correo').value = resultado.paciente.correo || '';
+                    
+                    // Mensaje de confirmación
+                    mensajeBusqueda.textContent = '¡Paciente encontrado! Los campos se han rellenado automáticamente.';
+                    mensajeBusqueda.style.color = '#28a745';
+                } else {
+                    // Paciente no encontrado
+                    document.getElementById('telefono').value = telefono;
+                    mensajeBusqueda.textContent = 'No encontramos un registro con este teléfono. Por favor, completa el formulario para registrarte.';
+                    mensajeBusqueda.style.color = '#ffc107';
+                    
+                    // Limpiar otros campos por si acaso
+                    document.getElementById('nombre').value = '';
+                    document.getElementById('apellidos').value = '';
+                    document.getElementById('correo').value = '';
+                }
+                
+                // Actualizar la barra de progreso después de llenar los campos
+                updateProgress();
+            });
+
+            // Validación del número de teléfono para la búsqueda
+            const telefonoBusqueda = document.getElementById('telefonoBusqueda');
+            telefonoBusqueda.addEventListener('input', function(e) {
+                let valor = e.target.value.replace(/\D/g, '');
+                if (valor.length > 10) {
+                    valor = valor.slice(0, 10);
+                }
+                e.target.value = valor;
+            });
 
             function updateProgress() {
                 let filledFields = 0;
@@ -660,12 +805,82 @@
                 const servicioSelect = document.getElementById('servicio');
                 servicioSelect.value = servicio;
                 servicioSelect.dispatchEvent(new Event('change'));
-            }
+            }            form.addEventListener('submit', async function(e) {                e.preventDefault();
 
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-
+                const nombre = document.getElementById('nombre').value;
+                const apellidos = document.getElementById('apellidos').value;
+                const telefono = document.getElementById('telefono').value;
+                const correo = document.getElementById('correo').value;
+                const servicio = document.getElementById('servicio').value;
                 const fecha = document.getElementById('fecha').value;
+                const hora = document.getElementById('hora').value;
+                const fecha_registro = new Date().toISOString().split('T')[0]; // Formato YYYY-MM-DD
+                
+                // Buscar paciente para verificar si existe
+                const resultado = await buscarPacientePorTelefono(telefono);
+                  // Si el paciente no existe, lo registramos primero
+                if (!resultado.existe) {
+                    mensajeBusqueda.textContent = 'Registrando nuevo paciente...';
+                    mensajeBusqueda.style.color = '#007bff';
+                    
+                    const datosPaciente = {
+                        nombre: nombre,
+                        apellidos: apellidos,
+                        telefono: telefono,
+                        correo: correo,
+                        fecha_registro: fecha_registro
+                    };
+                    
+                    const resultadoRegistro = await crearPaciente(datosPaciente);
+                    
+                    if (!resultadoRegistro.exito) {
+                        mensajeBusqueda.textContent = 'Error al registrar el paciente. Por favor, inténtalo de nuevo.';
+                        mensajeBusqueda.style.color = '#dc3545';
+                        return;
+                    }
+                    
+                    mensajeBusqueda.textContent = 'Paciente registrado correctamente.';
+                    mensajeBusqueda.style.color = '#28a745';
+                    
+                    // Actualizar resultado para tener el ID del paciente recién creado
+                    if (resultadoRegistro.paciente) {
+                        resultado.paciente = resultadoRegistro.paciente;
+                        resultado.existe = true;
+                    }
+                }
+
+                // Crear la cita usando el ID del paciente
+                if (resultado.existe && resultado.paciente) {
+                    mensajeBusqueda.textContent = 'Agendando cita...';
+                    mensajeBusqueda.style.color = '#007bff';
+                      const pacienteId = resultado.paciente.id || resultado.paciente._id;
+                    const servicioId = typeof servicio === 'object' ? servicio._id || servicio.id : servicio;
+                    
+                    const datosCita = {
+                        id_paciente: pacienteId,
+                        id_servicio: servicioId,
+                        fecha: fecha,
+                        hora: hora,
+                        estado: 'Pendiente'
+                    };
+                    
+                    const resultadoCita = await crearCita(datosCita);
+                    
+                    if (!resultadoCita.exito) {
+                        mensajeBusqueda.textContent = 'Error al agendar la cita. Por favor, inténtalo de nuevo.';
+                        mensajeBusqueda.style.color = '#dc3545';
+                        return;
+                    }
+                    
+                    mensajeBusqueda.textContent = 'Cita agendada correctamente.';
+                    mensajeBusqueda.style.color = '#28a745';
+                } else {
+                    mensajeBusqueda.textContent = 'Error al identificar al paciente para la cita.';
+                    mensajeBusqueda.style.color = '#dc3545';
+                    return;
+                }
+                
+                // Mostrar el modal de confirmación
                 const fechaFormateada = new Date(fecha).toLocaleDateString('es-ES', {
                     weekday: 'long',
                     year: 'numeric',
@@ -673,10 +888,14 @@
                     day: 'numeric'
                 });
 
-                const mensaje = `¡Perfecto! Nos vemos el ${fechaFormateada}`;
+                const mensaje = `¡Perfecto! Nos vemos el ${fechaFormateada} a las ${hora}`;
                 document.getElementById('modalMessage').textContent = mensaje;
                 document.getElementById('confirmationModal').style.display = 'block';
+                
+                // Reiniciar campos
                 form.reset();
+                document.getElementById('telefonoBusqueda').value = '';
+                mensajeBusqueda.textContent = '';
                 updateProgress();
             });
 
@@ -738,7 +957,43 @@
                     valor = valor.slice(0, 10);
                 }
                 e.target.value = valor;
-            });
+            });            // Cargar servicios desde la API
+            async function cargarServicios() {
+                try {
+                    const response = await fetch('https://dentist-app-0fcf42a43c96.herokuapp.com/api/servicios');
+                    
+                    if (!response.ok) {
+                        throw new Error(`Error HTTP: ${response.status}`);
+                    }
+                    
+                    const data = await response.json();
+                    const serviciosSelect = document.getElementById('servicio');
+                    
+                    // Limpiar opciones actuales excepto la primera (placeholder)
+                    while (serviciosSelect.options.length > 1) {
+                        serviciosSelect.remove(1);
+                    }
+                    
+                    // Agregar las opciones desde la API
+                    if (data.data && Array.isArray(data.data)) {
+                        data.data.forEach(servicio => {
+                            const option = document.createElement('option');
+                            option.value = servicio.id || servicio._id || servicio.nombre;
+                            option.textContent = servicio.nombre + (servicio.precio ? ` - $${servicio.precio}` : '');
+                            if (servicio.descuento) {
+                                option.textContent += ` -${servicio.descuento}%`;
+                            }
+                            serviciosSelect.appendChild(option);
+                        });
+                    }
+                } catch (error) {
+                    console.error('Error al cargar servicios:', error);
+                    // Si hay error, mantenemos las opciones predeterminadas
+                }
+            }
+            
+            // Cargar servicios al iniciar la página
+            cargarServicios();
 
             // Actualizar la barra de progreso al cargar la página
             updateProgress();
