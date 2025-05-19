@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Nuestros Servicios</title>
+    <title>Servicios Dentales | Luxury Dental Studio Tampico</title>
+    <link rel="icon" type="image/jpeg" href="logo.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -731,13 +732,18 @@
         const contactButton = document.getElementById('contactButton');
         const contactPopup = document.getElementById('contactPopup');
         const closePopup = document.getElementById('closePopup');
+        const overlay = document.getElementById('overlay');
 
         contactButton.addEventListener('click', () => {
             contactPopup.style.display = 'block';
+            overlay.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevenir scroll cuando el modal está abierto
         });
 
         closePopup.addEventListener('click', () => {
             contactPopup.style.display = 'none';
+            overlay.style.display = 'none';
+            document.body.style.overflow = ''; // Restaurar scroll
         });
 
         // Funcionalidad para los popups de información de procedimientos
@@ -912,10 +918,8 @@
             const overlay = document.getElementById('overlay');
             const popup = document.getElementById('procedureInfo');
             
-            if (event.target == contactPopup) {
+            if (event.target == overlay) {
                 contactPopup.style.display = 'none';
-            }
-            if (event.target == popup || event.target == overlay) {
                 popup.style.display = 'none';
                 overlay.style.display = 'none';
                 document.body.style.overflow = '';
